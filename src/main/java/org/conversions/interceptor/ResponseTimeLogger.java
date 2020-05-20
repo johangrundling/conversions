@@ -17,16 +17,16 @@ public class ResponseTimeLogger implements ContainerRequestFilter, ContainerResp
 
     @Override
     public void filter(ContainerRequestContext containerRequestContext) throws IOException {
-        containerRequestContext.setProperty(REQUEST_TIME, new Long(System.currentTimeMillis()));
+        containerRequestContext.setProperty(REQUEST_TIME, new Long(System.nanoTime()));
     }
 
     @Override
     public void filter(ContainerRequestContext containerRequestContext
             , ContainerResponseContext containerResponseContext) throws IOException {
         Long requestTime = (Long) containerRequestContext.getProperty(REQUEST_TIME);
-        Long responseTime = System.currentTimeMillis();
-        Double duration = (responseTime - requestTime) / 60D;
-        log.info("response time {} {}", containerRequestContext.getUriInfo().getPath()
+        Long responseTime = System.nanoTime();
+        Long duration = (responseTime - requestTime);
+        log.info("response time {} {} nano seconds", containerRequestContext.getUriInfo().getPath()
                 , duration);
     }
 
