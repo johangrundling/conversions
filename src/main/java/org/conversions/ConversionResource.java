@@ -18,6 +18,10 @@ public class ConversionResource {
 
     private static final BigDecimal KELVIN_CELSUIS_DIFF = new BigDecimal("273.15");
 
+    private static final BigDecimal MILES_TO_KILOMETERS_FACTOR = new BigDecimal("1.609344");
+
+    private static final BigDecimal KILOMETERS_TO_MILES_FACTOR = new BigDecimal("0.621371");
+
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
@@ -43,17 +47,17 @@ public class ConversionResource {
     @GET
     @Path("/mtok/{miles}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String milesToKilometers(@PathParam("miles") String miles) {
+    public BigDecimal milesToKilometers(@PathParam("miles") BigDecimal miles) {
         log.info("mtok {} ", miles);
-        return "mtok " + miles;
+        return miles.multiply(MILES_TO_KILOMETERS_FACTOR);
     }
 
     @GET
     @Path("/ktom/{kilometers}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String kilometerToMiles(@PathParam("kilometers") String kilometers) {
+    public BigDecimal kilometerToMiles(@PathParam("kilometers") BigDecimal kilometers) {
         log.info("ktom {} ", kilometers);
-        return "ktom " + kilometers;
+        return kilometers.multiply(KILOMETERS_TO_MILES_FACTOR);
     }
 
 
