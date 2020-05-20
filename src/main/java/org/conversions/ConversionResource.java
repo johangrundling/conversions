@@ -9,10 +9,14 @@ import javax.ws.rs.core.MediaType;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigDecimal;
+
 
 @Slf4j
 @Path("/conversions")
 public class ConversionResource {
+
+    private static final BigDecimal KELVIN_TO_CELSUIS = new BigDecimal("273.15");
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -23,9 +27,9 @@ public class ConversionResource {
     @GET
     @Path("/ktoc/{kelvin}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String kelvinToCelsuis(@PathParam("kelvin") String kelvin) {
+    public BigDecimal kelvinToCelsuis(@PathParam("kelvin") BigDecimal kelvin) {
         log.info("ktoc {} ", kelvin);
-        return "ktoc " + kelvin;
+        return kelvin.subtract(KELVIN_TO_CELSUIS);
     }
 
     @GET
