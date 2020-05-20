@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Path("/conversions")
 public class ConversionResource {
 
-    private static final BigDecimal KELVIN_TO_CELSUIS = new BigDecimal("273.15");
+    private static final BigDecimal KELVIN_CELSUIS_DIFF = new BigDecimal("273.15");
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -29,15 +29,15 @@ public class ConversionResource {
     @Produces(MediaType.TEXT_PLAIN)
     public BigDecimal kelvinToCelsuis(@PathParam("kelvin") BigDecimal kelvin) {
         log.info("ktoc {} ", kelvin);
-        return kelvin.subtract(KELVIN_TO_CELSUIS);
+        return kelvin.subtract(KELVIN_CELSUIS_DIFF);
     }
 
     @GET
     @Path("/ctok/{celsuis}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String celsuisToKelvin(@PathParam("celsuis") String celsuis) {
+    public BigDecimal celsuisToKelvin(@PathParam("celsuis") BigDecimal celsuis) {
         log.info("ctok {} ", celsuis);
-        return "ctok " + celsuis;
+        return celsuis.add(KELVIN_CELSUIS_DIFF);
     }
 
     @GET
