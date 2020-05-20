@@ -13,14 +13,21 @@ import java.io.IOException;
 @Provider
 public class ResponseTimeLogger implements ContainerRequestFilter, ContainerResponseFilter {
 
+    private final static String REQUEST_TIME = "requestTime";
+
     @Override
     public void filter(ContainerRequestContext containerRequestContext) throws IOException {
-        log.info("hello {} ", containerRequestContext.getUriInfo().getPath());
+        containerRequestContext.setProperty(REQUEST_TIME, new Long(System.currentTimeMillis()));
     }
 
     @Override
-    public void filter(ContainerRequestContext containerRequestContext, ContainerResponseContext containerResponseContext) throws IOException {
-        log.info("bye {} ", containerRequestContext.getUriInfo().getPath());
+    public void filter(ContainerRequestContext containerRequestContext
+            , ContainerResponseContext containerResponseContext) throws IOException {
+        Long requestTime = (Long) containerRequestContext.getProperty(REQUEST_TIME);
+        Long responseTime = System.currentTimeMillis();
+        Double duration = (responseTime - requestTime) / 60D;
+        log.info("response time {} {}", containerRequestContext.getUriInfo().getPath()
+                , duration);
     }
 
 }
