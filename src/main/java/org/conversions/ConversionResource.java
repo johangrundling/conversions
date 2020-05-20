@@ -1,5 +1,7 @@
 package org.conversions;
 
+import org.jboss.resteasy.annotations.jaxrs.PathParam;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -13,4 +15,13 @@ public class ConversionResource {
     public String hello() {
         return "hello";
     }
+
+    @GET
+    @Path("/ktoc/{kelvin}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String kelvinToCelsuis(@PathParam("kelvin") String kelvin) {
+        return "ktoc " + kelvin;
+    }
+
+
 }
