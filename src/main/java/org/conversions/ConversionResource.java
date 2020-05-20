@@ -23,5 +23,28 @@ public class ConversionResource {
         return "ktoc " + kelvin;
     }
 
+    @GET
+    @Path("/ctok/{celsuis}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String celsuisToKelvin(@PathParam("celsuis") String celsuis) {
+        return "ktoc " + celsuis;
+    }
+
+    @GET
+    @Path("/mtok/{miles}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String mileToKilometers(@PathParam("miles") String miles) {
+        return "mtok " + miles;
+    }
+
+    @GET
+    @Path("/ktom/{kilometers}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String kilometerToMiles(@PathParam("kilometers") String kilometers) {
+        return "ktom " + kilometers;
+    }
+
+
+
 
 }
